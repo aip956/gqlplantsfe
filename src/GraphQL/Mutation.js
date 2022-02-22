@@ -20,3 +20,8 @@ export const CREATE_PLANT = gql`
                 }
         }
 `; 
+
+export const DELETE_PLANT=gql`
+mutation deletePlant($id:String){
+deletePlant(id:$id)}
+`;
