@@ -1,12 +1,15 @@
 import { useMutation, useQuery } from '@apollo/client';
-import { CREATE_PLANT, DELETE_PLANT } from './GraphQL/Mutation';
+import { CREATE_PLANT, DELETE_PLANT, UPDATE_PLANT } from './GraphQL/Mutation';
 import { getAll } from "./GraphQL/Query";
 import { useState } from "react";
+import './App.css';
 
 function App() {
   const{loading, error, data, refetch}=useQuery(getAll);
   const [createPlant,{err}]=useMutation(CREATE_PLANT);
   const [deletePlant,{errs}]=useMutation(DELETE_PLANT);
+  const [updatePlant,{errors}]=useMutation(UPDATE_PLANT);
+
   const [name,setName] = useState(null)
   const [type,setType] = useState(null)  
   const [image,setImage] = useState(null) 
@@ -32,17 +35,30 @@ const removePlant=(id) => {
   });
 };
 
+const changePlant=(id) => {
+  updatePlant({
+    variables:{
+      name: name,
+      type: type,
+      image: image,
+    },
+  });
+};
+
+
 
   return (
     <div className="App">
+      <h1>My Excellent Plant App</h1>
       {data.getAll.map((data) => (
       <>
           <p key={data.name}>
             {data.name}:{data.type}
            <br/>
-            Image: {data.image}
+            <img src={data.image} alt={data.name} />
           
           </p>
+          <button onClick={()=>{changePlant(data.id);refetch() }}>Update Plant</button>
           <button onClick={()=>{removePlant(data.id);refetch() }}>Delete Plant</button>
       </>  
         ))}
