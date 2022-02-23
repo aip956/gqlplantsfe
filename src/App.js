@@ -3,6 +3,7 @@ import { CREATE_PLANT, DELETE_PLANT, UPDATE_PLANT } from './GraphQL/Mutation';
 import { getAll } from "./GraphQL/Query";
 import { useState } from "react";
 import './App.css';
+import buttonbox from './buttonbox';
 
 function App() {
   const{loading, error, data, refetch}=useQuery(getAll);
@@ -50,6 +51,8 @@ const changePlant=(id) => {
   return (
     <div className="App">
       <h1>My Excellent Plant App</h1>
+      <button onClick={() => {addPlant(); refetch()}}>Add Plant</button>
+
       {data.getAll.map((data) => (
       <>
           <p key={data.name}>
@@ -58,19 +61,17 @@ const changePlant=(id) => {
             <img src={data.image} alt={data.name} />
           
           </p>
-          <button onClick={()=>{changePlant(data.id);refetch() }}>Update Plant</button>
+          {/* <button onClick={()=>{changePlant(data.id);refetch() }}>Update Plant</button> */}
           <button onClick={()=>{removePlant(data.id);refetch() }}>Delete Plant</button>
       </>  
         ))}
   <br/>
+
+  
 Name: <input onChange={(e)=>setName(e.target.value)}/>
 Type: <input onChange={(e)=>setType(e.target.value)}/>
 Image: <input onChange={(e)=>setImage(e.target.value)}/>
- <button onClick={() => {addPlant();
- refetch();
- }}
- >
-   Add Plant</button>
+ 
     </div>
   );
 }
