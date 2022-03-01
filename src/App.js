@@ -50,8 +50,11 @@ const changePlant=(id) => {
 
   return (
     <div className="App">
-      <h1>My Excellent Plant App</h1>
+      <h1>My Unstyled Plant App</h1>
       <button onClick={() => {addPlant(); refetch()}}>Add Plant</button>
+      Name: <input onChange={(e)=>setName(e.target.value)}/>
+      Type: <input onChange={(e)=>setType(e.target.value)}/>
+      Image: <input onChange={(e)=>setImage(e.target.value)}/>
 
       {data.getAll.map((data) => (
       <>
@@ -68,9 +71,7 @@ const changePlant=(id) => {
   <br/>
 
   
-Name: <input onChange={(e)=>setName(e.target.value)}/>
-Type: <input onChange={(e)=>setType(e.target.value)}/>
-Image: <input onChange={(e)=>setImage(e.target.value)}/>
+
  
     </div>
   );
